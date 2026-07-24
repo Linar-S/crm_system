@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="flex flex-ai-center padding_b-s">
+    <h1 class="padding_tb-s">{{ title }}</h1>
+    {% if request.user.is_authenticated %}
+     <a href="{% url 'task_create' %}" class="card-button margin_l-3xs"> Создать задачу </a>
+    {% endif %}
+</div>
+
+<div class=" kanban-page kanban-container content-block padding-2xs flex flex-center full-size">
+    {% if not statuses %}
+        <div class="kanban-empty-board">
+            <span>Нет статусов</span>
+        </div>
+    {% else %}
+        {% if request.user.is_authenticated %}
+        {% for status in statuses %}
+            <div class="kanban-column" data-status-id="{{ status.id }}">
+                <div class="kanban-column-header">
+                    <i class="fa {{ status.icon }}"></i>
+                    <h3>{{ status.name }}</h3>
+                </div>
+
+                <div class="kanban-task-list">
+                    {% with tasks=status.task_set.all %}
+                        {% if tasks %}
+                            {% for task in tasks %}
+                                <div class="kanban-task-card " draggable="true"
+                                     data-task-id="{{ task.id }}"
+                                     data-status-id="{{ status.id }}">
+                                    <span class="task-title">{{ task.title }}</span>
+                                    <span>{{ task.phone.as_international }}</span>
+
+                                    <div class="responsible-user">Ответственный: {{ task.user }}</div>
+                                    {% if request.user.is_authenticated %}
+                                        <div class="task-actions">
+                                             <a href="{% url 'task_update' task.id %}" class="card-button">
+                                            Открыть карточку
+                                             </a>
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endif %}
+</div>
+<script src="{% static 'js/draganddrop.js' %}"></script>
+{% endblock %}

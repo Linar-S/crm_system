@@ -1,0 +1,19 @@
+.font-2xl {
+    font-size: var(--font-2xl);
+}
+
+.font-s {
+    font-size: var(--font-s) !important;
+}
+
+.color-base{
+    color: var(--base-text-color);
+}
+
+.color-second{
+color: var(--second-text-color);
+}
+
+.color-danger{
+color: var(--danger-text-color);
+}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="flex flex-ai-center padding_b-s">
+        <h1 class="padding_tb-s">{{ task_list }}</h1>
+    </div>
+
+   {% if not tasks %}
+   <div class="home_empty-tasks content-block padding-2xs flex flex-center full-size">
+      <span class="font-2xl">Нет задач</span>
+   </div>
+   {% else %}
+        {% if request.user.is_authenticated %}
+        {% for task in tasks %}
+            <div class="content-block padding-2xs margin_b-3xs">
+                    <h3>{{task.title}}</h3>
+                    <span>{{ task.phone.as_international }}</span>
+                    <div>Ответсвенный: {{task.user}}</div>
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'task_update' task.id %}" class="card-button">
+                        Открыть карточку
+                    </a>
+                    {% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
+   {% endif %}
+
+{% endblock %}

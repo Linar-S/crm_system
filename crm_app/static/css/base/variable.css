@@ -1,0 +1,44 @@
+:root {
+    --main-bg-color: rgb(240, 240, 240);
+    --header-bg-color: rgb(49, 60, 69);
+    --header-height: 56px;
+    --header-text-color: aliceblue;
+    --link-hover-text-color: rgb(153, 221, 255);
+
+    --offset-4xs: 4px;
+    --offset-3xs: 8px;
+    --offset-2xs: 12px;
+    --offset-xs: 14px;
+    --offset-s: 16px;
+    --offset-m: 18px;
+    --offset-l: 24px;
+    --offset-xl: 28px;
+    --offset-2xl: 32px;
+    --offset-3xl: 36px;
+
+    --font-3xs: 4px;
+    --font-2xs: 8px;
+    --font-xs: 12px;
+    --font-s: 14px;
+    --font-m: 18px;
+    --font-l: 24px;
+    --font-xl: 28px;
+    --font-2xl: 36px;
+    --font-3xl: 48px;
+    
+    --base-transition: 0.3s;
+    --base-content-wrapper-width: 60%;
+
+    --button-main-color: rgb(84, 142, 171);
+    --button-main-color-hover: rgb(57, 114, 142);
+    --button-border-radius: 4px;
+
+    --block-color: aliceblue;
+
+    --form-input-width: 250px;
+
+    --base-text-color: var(--header-bg-color);
+    --second-text-color: aliceblue;
+    --danger-text-color: red;
+    
+}

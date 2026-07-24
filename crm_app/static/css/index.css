@@ -1,0 +1,46 @@
+@import './base/variable.css';
+@import './base/base.css';
+@import './base/spacing.css'; 
+@import './base/font.css'; 
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    font-size: var(--font-s);
+
+}
+
+h1{
+    font-size: var(--font-l);
+}
+
+
+body {
+    background-color: var(--main-bg-color);   
+    
+}
+
+header{
+    height: var(--header-height);
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    
+}
+
+header a{
+    color: var(--header-text-color);
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--offset-s);
+}
+
+
+.header-logo a{
+    text-decoration: none;
+}

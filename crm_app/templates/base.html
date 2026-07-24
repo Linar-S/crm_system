@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+    <meta charset="UTF-8">
+        <title> CRM - система
+            {% if title %}
+                | {{title}}
+            {% endif %}
+        </title>
+        <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/kanban.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        {% block custom_css %}
+        {% endblock %}
+        {% block custom_js %}
+        {% endblock %}
+    </head>
+<body class="full-screen overflow-hidden">
+
+    <header class="full-width flex flex-jc-center ">
+        <div class="content-wrapper full-height flex flex-ai-center flex-jc-sb">
+            <div class="header-logo full-height flex flex-ai-center padding_tb-s">
+                <a href="{% url 'home' %}">
+                    <h1>
+                        CRM-система
+                    </h1>
+                 </a> 
+                <div class="v-delimiter full-height margin_rl-3xs">
+                </div>
+                <a href="{%url 'status-list' %}" class="simple-link flex flex-ai-center">
+                    Канбан
+                </a>
+
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'user_tasks' %}" class="simple-link flex flex-ai-center margin_l-3xs">Мои задачи</a>
+                {% endif %}
+            </div>
+            <div class="header-buttons">
+                {% if request.user.is_authenticated%}
+                {% endif %}
+                {{ request.user }}
+                {% if request.user.is_authenticated%}
+                <a href="{% url 'logout' %}" class="margin_r-3xs button-link">
+                    Выйти
+                </a>
+                {% else %}
+                <a href="{% url 'login'%}" class="margin_r-3xs button-link">
+                    Войти
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="full-size flex flex-jc-center ">
+        <div  class="content-wrapper flex flex-jc-sb">
+            <main class="flex flex-column">
+                {% block content %}
+
+                {% endblock %}
+            </main>
+    </div>  
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+.padding_tb-s{
+    padding: var(--offset-s) 0;
+}
+
+.margin_rl-3xs{
+    margin: 0 var(--offset-3xs) ;
+}
+
+.margin_r-3xs {
+    margin-right: var(--offset-3xs);
+}
+
+.margin_l-3xs{
+    margin-left: var(--offset-3xs);
+}
+
+.margin_b-3xs{
+    margin-bottom: var(--offset-3xs);
+}
+
+.padding-2xs{
+    padding: var(--offset-2xs);
+}
+
+.padding_tb_xl{
+    padding-top: var(--offset-xl);
+    padding-bottom: var(--offset-xl);
+}
+
+.margin_b_m{
+    margin-bottom: var(--offset-m);
+}

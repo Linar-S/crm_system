@@ -1,0 +1,193 @@
+.content-wrapper {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 var(--offset-m);
+}
+
+.kanban-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--offset-m);
+    padding: var(--offset-s) var(--offset-m);
+    align-items: flex-start;
+    min-height: 500px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+.kanban-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.kanban-container::-webkit-scrollbar-track {
+    background: var(--main-bg-color);
+    border-radius: 4px;
+}
+
+.kanban-container::-webkit-scrollbar-thumb {
+    background: var(--header-bg-color);
+    border-radius: 4px;
+}
+
+.kanban-empty-board {
+    width: 100%;
+    text-align: center;
+    padding: var(--offset-2xl) 0;
+    font-size: var(--font-m);
+    color: var(--base-text-color);
+    opacity: 0.6;
+}
+
+.kanban-column {
+    flex: 0 0 280px;
+    min-width: 220px;
+    background-color: var(--main-bg-color);
+    border-radius: var(--offset-xs);
+    padding: var(--offset-s) var(--offset-m);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--header-bg-color);
+    border-color: rgba(49, 60, 69, 0.2);
+    max-height: 70vh;
+}
+
+.kanban-column.full-height {
+    height: 100%;
+    max-height: none;
+}
+
+.kanban-column-header {
+    display: flex;
+    align-items: center;
+    gap: var(--offset-2xs);
+    margin-bottom: var(--offset-s);
+    font-weight: 600;
+    color: var(--base-text-color);
+    flex-shrink: 0;
+}
+
+.kanban-column-header i {
+    font-size: var(--font-m);
+    color: var(--header-bg-color);
+}
+
+.kanban-column-header h3 {
+    margin: 0;
+    font-size: var(--font-m);
+    font-weight: 600;
+}
+
+.kanban-task-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--offset-2xs);
+    flex: 1;
+    overflow-y: auto;
+    padding-right: var(--offset-4xs);
+}
+
+.kanban-task-list.flex-column {
+    flex-direction: column;
+}
+
+.kanban-task-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.kanban-task-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.kanban-task-list::-webkit-scrollbar-thumb {
+    background: var(--header-bg-color);
+    border-radius: 3px;
+}
+
+.kanban-task-card {
+    background-color: var(--header-bg-color);
+    border-radius: var(--offset-2xs);
+    padding: var(--offset-s) var(--offset-m);
+    color: var(--second-text-color);
+}
+
+.kanban-task-card .flex-ai-center {
+    align-items: center;
+}
+
+.task-title {
+    display: block;
+    font-weight: 600;
+    font-size: var(--font-s);
+    margin-bottom: var(--offset-4xs);
+    word-break: break-word;
+    color: var(--second-text-color);
+}
+
+.responsible-user {
+    font-size: var(--font-xs);
+    opacity: 0.8;
+    margin-bottom: var(--offset-2xs);
+}
+
+.task-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.task-actions .flex {
+    display: flex;
+}
+
+.card-button {
+    display: inline-block;
+    background-color: var(--button-main-color);
+    color: var(--second-text-color);
+    padding: var(--offset-4xs) var(--offset-m);
+    border-radius: var(--button-border-radius);
+    font-size: var(--font-xs);
+    text-decoration: none;
+    transition: background-color var(--base-transition);
+    border: none;
+    cursor: pointer;
+}
+
+.card-button:hover {
+    background-color: var(--button-main-color-hover);
+    color: var(--second-text-color);
+    text-decoration: none;
+}
+
+.kanban-empty-tasks {
+    padding: var(--offset-m) var(--offset-2xs);
+    text-align: center;
+    color: var(--base-text-color);
+    opacity: 0.5;
+    font-style: italic;
+    font-size: var(--font-xs);
+}
+
+.kanban-task-card.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+.kanban-column.drag-over {
+    background-color: rgba(0, 123, 255, 0.1);
+    border: 2px dashed #007bff;
+    border-radius: 8px;
+}
+
+.kanban-column.drag-over .kanban-task-list {
+    min-height: 100px;
+}
+
+@media (max-width: 768px) {
+    .kanban-column {
+        flex: 0 0 220px;
+        min-width: 180px;
+        padding: var(--offset-2xs) var(--offset-s);
+    }
+}
+

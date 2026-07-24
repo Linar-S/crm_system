@@ -1,0 +1,183 @@
+.form-container {
+    display: flex;
+    flex-direction: row;
+    gap: var(--offset-l);
+    align-items: stretch;
+    width: 100%;
+    min-height: 80vh;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.left-column.full-width {
+    flex: 1;
+    width: 100%;
+}
+
+.right-column {
+    flex: 2;
+    margin-left: var(--offset-3xs);
+}
+
+.content-block {
+    background-color: var(--header-bg-color);
+    padding: var(--offset-3xl) var(--offset-l);
+    border-radius: var(--button-border-radius);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.left-column .content-block form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.left-column .content-block form p {
+    display: flex;
+    flex-direction: column;
+    width: var(--form-input-width);
+}
+
+.left-column .content-block form label {
+    margin-bottom: var(--offset-4xs);
+    color: var(--header-text-color);
+}
+
+.left-column .content-block form input,
+.left-column .content-block form textarea,
+.left-column .content-block form select {
+    margin-bottom: var(--offset-3xs);
+    height: var(--offset-xl);
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid var(--main-bg-color);
+    max-width: var(--form-input-width);
+    min-width: var(--form-input-width);
+}
+
+.left-column .content-block form .button-link {
+    color: var(--header-text-color);
+    border: 0;
+    box-shadow: 0;
+    margin-top: var(--offset-2xs);
+}
+
+.left-column .additional-container {
+    width: 100%;
+    max-width: var(--form-input-width);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: var(--offset-s);
+    padding: var(--offset-2xs);
+    box-sizing: border-box;
+    color: var(--header-text-color);
+    text-align: center;
+}
+
+.left-column .additional-container a {
+    color: var(--base-text-color);
+    transition: var(--base-transition);
+}
+
+.left-column .additional-container a:hover {
+    color: var(--header-text-color);
+}
+
+.comments-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.comments-section h3 {
+    margin-top: 0;
+    margin-bottom: var(--offset-s);
+    color: var(--header-text-color);
+    flex-shrink: 0;
+}
+
+.comment-form {
+    margin-bottom: var(--offset-s);
+    flex-shrink: 0;
+}
+
+.comment-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--offset-2xs);
+    border: 1px solid var(--main-bg-color);
+    border-radius: var(--button-border-radius);
+    resize: vertical;
+    background-color: var(--block-color);
+    color: var(--base-text-color);
+}
+
+.comment-form label {
+    display: block;
+    margin-bottom: var(--offset-4xs);
+    font-weight: bold;
+    color: var(--header-text-color);
+}
+
+.comment-form .button-link {
+    margin-top: var(--offset-2xs);
+    background-color: var(--button-main-color);
+    color: var(--header-text-color);
+    border: none;
+    padding: var(--offset-2xs) var(--offset-l);
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+    transition: var(--base-transition);
+}
+
+.comment-form .button-link:hover {
+    background-color: var(--button-main-color-hover);
+}
+
+.comments-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: var(--offset-3xs);
+    color: var(--header-text-color);
+}
+
+.comment-item {
+    border-bottom: 1px solid var(--main-bg-color);
+    padding: var(--offset-2xs) 0;
+}
+
+.comment-item strong {
+    font-weight: bold;
+    color: var(--header-text-color);
+}
+
+.comment-item span {
+    font-size: var(--font-xs);
+    color: var(--main-bg-color);
+    margin-left: var(--offset-2xs);
+}
+
+.comment-item p {
+    margin: var(--offset-3xs) 0 0;
+    color: var(--header-text-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+    display: block;
+}
+
+.no-comments {
+    color: var(--main-bg-color);
+    font-style: italic;
+}
