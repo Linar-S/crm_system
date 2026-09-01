@@ -3,6 +3,9 @@
 {% block content %}
     <div class="flex flex-ai-center padding_b-s">
         <h1 class="padding_tb-s">{{ task_list }}</h1>
+     {% if request.user.is_authenticated %}
+     <a href="{% url 'task_create' %}" class="card-button margin_l-3xs"> Создать задачу </a>
+    {% endif %}
     </div>
 
    {% if not tasks %}

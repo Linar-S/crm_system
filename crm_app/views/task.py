@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render
+from django.utils import timezone
 
 from crm_app.controllers import TaskController
 from django.http import JsonResponse
@@ -31,5 +33,24 @@ def user_tasks(request):
     context = {
         'tasks': tasks,
         'task_list': 'Мои задачи',
+    }
+    return render(request, 'user_tasks.html', context)
+
+@login_required
+def user_overdue(request):
+    now = timezone.now()
+
+    filter_conditions = Q(communication_time__isnull=False, communication_time__lt=now)
+
+    if not request.user.is_superuser:
+        filter_conditions &= Q(user=request.user)
+
+    tasks = Task.objects.filter(filter_conditions)
+    tasks = tasks.exclude(status__name__in=['Успешный', 'Спам', 'Отказ'])
+    tasks = tasks.order_by('communication_time')
+
+    context = {
+        'tasks': tasks,
+        'overdue_list': 'Просроченные задачи',
     }
     return render(request, 'user_tasks.html', context)

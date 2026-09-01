@@ -34,6 +34,7 @@
 
                 {% if request.user.is_authenticated %}
                     <a href="{% url 'user_tasks' %}" class="simple-link flex flex-ai-center margin_l-3xs">Мои задачи</a>
+                    <a href="{% url 'user_overdue' %}" class="simple-link flex flex-ai-center margin_l-3xs">Просроченные задачи</a>
                 {% endif %}
             </div>
             <div class="header-buttons">
