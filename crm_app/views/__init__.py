@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .status import status_list, status_form, status_delete
 from .auth import login_page, register_page, logout_page
 from .task import *
+from .statistic import *
 from ..models import Task
 
 

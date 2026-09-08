@@ -35,6 +35,8 @@
                 {% if request.user.is_authenticated %}
                     <a href="{% url 'user_tasks' %}" class="simple-link flex flex-ai-center margin_l-3xs">Мои задачи</a>
                     <a href="{% url 'user_overdue' %}" class="simple-link flex flex-ai-center margin_l-3xs">Просроченные задачи</a>
+                    <a href="{% url 'success_statistics' %}" class="simple-link flex flex-ai-center margin_l-3xs">Статистика</a>
+
                 {% endif %}
             </div>
             <div class="header-buttons">
@@ -42,6 +44,11 @@
                 {% endif %}
                 {{ request.user }}
                 {% if request.user.is_authenticated%}
+                {% if request.user.is_superuser%}
+                <a href="{% url 'register' %}" class="margin_r-3xs button-link">
+                    Создание нового пользователя
+                </a>
+                {% endif %}
                 <a href="{% url 'logout' %}" class="margin_r-3xs button-link">
                     Выйти
                 </a>

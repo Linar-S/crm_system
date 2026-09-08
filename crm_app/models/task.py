@@ -18,5 +18,10 @@ class Task(Model):
         if self.communication_time and self.communication_time < timezone.now():
             raise ValidationError({'communication_time': 'Время коммуникации не может быть в прошлом.'})
 
+    def save(self, *args, **kwargs):
+        if self.status and self.status.name in ['Успешный', 'Отказ', 'Спам']:
+            self.communication_time = None
+        super().save(*args, **kwargs)
+
     def __str__(self) -> str:
         return self.title

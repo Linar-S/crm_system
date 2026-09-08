@@ -48,11 +48,11 @@ class RegisterController(BaseController):
     def _get_form_page_context(self) -> dict:
         return {
             "form": self.form,
-            "title": "Регистрация",
-            "page_title": "Регистрация в системе",
-            "additional_text": "Уже зарегистрированы ?",
-            "additional_link": "/login",
-            "link_text": "Авторизуйтесь",
-            "btn_text": "Зарегистрироваться"
+            "title": "Регистрация нового пользовтеля",
+            "page_title": "Регистрация нового пользовтеля в системе",
+            "additional_text": None,
+            "additional_link": None,
+            "link_text": None,
+            "btn_text": "Зарегистрировать пользователя"
 
         }

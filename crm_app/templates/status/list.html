@@ -34,6 +34,7 @@
                                     <span>{{ task.phone.as_international }}</span>
 
                                     <div class="responsible-user">Ответственный: {{ task.user }}</div>
+                                    <div class="responsible-user"> Дата связи: {{ task.communication_time|date:"d.m.Y" }}</div>
                                     {% if request.user.is_authenticated %}
                                         <div class="task-actions">
                                              <a href="{% url 'task_update' task.id %}" class="card-button">

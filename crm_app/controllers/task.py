@@ -17,8 +17,10 @@ class TaskController(BaseController):
         if not form.is_valid():
             return False
 
-        old_task = Task.objects.get(pk=self._entity_id)
-        print(old_task.communication_time)
+        old_task = None
+        if self._entity_id is not None:
+            old_task = Task.objects.get(pk=self._entity_id)
+
         old_communication_time = old_task.communication_time if old_task else None
 
         if not self._request.user.is_superuser:
