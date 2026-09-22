@@ -3,6 +3,30 @@
 {% block content %}
 <h2>Статистика по заявкам</h2>
 
+<!-- Фильтр по месяцам и датам -->
+<form method="get" class="stat-filter">
+    <div class="stat-filter-header">
+        <span class="stat-filter-title">Фильтр по периоду закрытия</span>
+    </div>
+
+    <div class="stat-filter-row">
+        <label>
+            Месяц:
+            {{ form.month }}
+        </label>
+        <label>
+            С даты:
+            {{ form.date_from }}
+        </label>
+        <label>
+            По дату:
+            {{ form.date_to }}
+        </label>
+        <button type="submit" class="button-link">Показать</button>
+        <a href="{% url 'success_statistics' %}" class="simple-link">Сбросить</a>
+    </div>
+</form>
+
 <!-- Карточки с общими итогами -->
 <div class="stat-cards">
     <div class="stat-card">
@@ -38,8 +62,8 @@
         {% for row in stats %}
         <tr>
             <td>
-                {{ row.user__first_name }} {{ row.user__last_name }}
-                {% if row.user__username %}({{ row.user__username }}){% endif %}
+                {{ row.first_name }} {{ row.last_name }}
+                {% if row.username %}({{ row.username }}){% endif %}
             </td>
             <td>{{ row.total }}</td>
             <td>{{ row.success }}</td>
@@ -48,7 +72,7 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="5" class="empty-message">Нет данных</td>
+            <td colspan="5" class="empty-message">Нет данных за выбранный период</td>
         </tr>
         {% endfor %}
     </tbody>
