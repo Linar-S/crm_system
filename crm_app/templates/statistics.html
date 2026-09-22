@@ -1,32 +1,66 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Статистика по успешным заказам</h2>
-    <table class="statistics-table">
-        <thead>
-            <tr>
-                <th>Ответственный</th>
-                <th class="amount">Общая сумма</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in stats %}
-            <tr>
-                <td>{{ row.user__first_name }} {{ row.user__last_name }} ({{ row.user__username }})</td>
-                <td class="amount">{{ row.total_amount }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="2" class="empty-message">Нет успешных заказов</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr class="total-row">
-                <td>Итого</td>
-                <td class="amount">{{ total_sum }}</td>
-            </tr>
-        </tfoot>
-    </table>
+<h2>Статистика по заявкам</h2>
+
+<!-- Карточки с общими итогами -->
+<div class="stat-cards">
+    <div class="stat-card">
+        <div class="stat-label">Всего заявок</div>
+        <div class="stat-value">{{ totals.total|default:0 }}</div>
+    </div>
+    <div class="stat-card success">
+        <div class="stat-label">Успешных</div>
+        <div class="stat-value">{{ totals.success|default:0 }}</div>
+    </div>
+    <div class="stat-card refused">
+        <div class="stat-label">Отказных</div>
+        <div class="stat-value">{{ totals.refused|default:0 }}</div>
+    </div>
+    <div class="stat-card amount">
+        <div class="stat-label">Сумма по успешным</div>
+        <div class="stat-value">{{ totals.total_sum|default:0 }} ₽</div>
+    </div>
+</div>
+
+<!-- Таблица по пользователям -->
+<table class="statistics-table">
+    <thead>
+        <tr>
+            <th>Ответственный</th>
+            <th>Всего</th>
+            <th>Успешных</th>
+            <th>Отказных</th>
+            <th class="amount">Сумма (успешные)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in stats %}
+        <tr>
+            <td>
+                {{ row.user__first_name }} {{ row.user__last_name }}
+                {% if row.user__username %}({{ row.user__username }}){% endif %}
+            </td>
+            <td>{{ row.total }}</td>
+            <td>{{ row.success }}</td>
+            <td>{{ row.refused }}</td>
+            <td class="amount">{{ row.total_amount|default:0 }} ₽</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="empty-message">Нет данных</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr class="total-row">
+            <td>Итого</td>
+            <td>{{ totals.total }}</td>
+            <td>{{ totals.success }}</td>
+            <td>{{ totals.refused }}</td>
+            <td class="amount">{{ totals.total_sum|default:0 }} ₽</td>
+        </tr>
+    </tfoot>
+</table>
 
 {% endblock %}

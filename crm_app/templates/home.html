@@ -3,34 +3,43 @@
 {% block content %}
     <div class="flex flex-ai-center padding_b-s">
         <h1 class="padding_tb-s">{{ task_list }}</h1>
-     {% if request.user.is_authenticated %}
-     <a href="{% url 'task_create' %}" class="card-button margin_l-3xs"> Создать задачу </a>
-    {% endif %}
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'task_create' %}" class="card-button margin_l-3xs">Создать задачу</a>
+        {% endif %}
     </div>
 
-   {% if not tasks %}
-   <div class="home_empty-tasks content-block padding-2xs flex flex-center full-size">
-      <span class="font-2xl">Нет задач</span>
-   </div>
-   {% else %}
-        {% if request.user.is_authenticated %}
+    {% if not tasks %}
+        <div class="home_empty-tasks content-block padding-2xs flex flex-center full-size">
+            <span class="font-2xl">Нет задач</span>
+        </div>
+    {% else %}
         {% for task in tasks %}
             <div class="content-block padding-2xs margin_b-3xs
                 {% if task.status.name == 'Успешный' %} block-green
                 {% elif task.status.name == 'Отказ' %} block-red
                 {% endif %}">
+
                 <h3>{{ task.title }}</h3>
                 <span>{{ task.phone.as_international }}</span>
                 <div>Ответственный: {{ task.user }}</div>
-                <div>Дата связи: {{ task.communication_time|date:"d.m.Y" }}</div>
+
+                {% if task.communication_time %}
+                    <div>Дата связи: {{ task.communication_time|date:"d.m.Y H:i" }}</div>
+                {% endif %}
+
+                <div class="task-dates">
+                    <span>Создана: {{ task.created_at|date:"d.m.Y H:i" }}</span>
+                    {% if task.closed_at %}
+                        <span>Закрыта: {{ task.closed_at|date:"d.m.Y H:i" }}</span>
+                    {% endif %}
+                </div>
+
                 {% if request.user.is_authenticated %}
                     <a href="{% url 'task_update' task.id %}" class="card-button">
                         Открыть карточку
                     </a>
                 {% endif %}
-        </div>
+            </div>
         {% endfor %}
     {% endif %}
-   {% endif %}
-
 {% endblock %}

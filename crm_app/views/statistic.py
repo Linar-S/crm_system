@@ -1,19 +1,36 @@
-from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Q, Sum
 from django.shortcuts import render
-from crm_app.models import Task, Status
+from crm_app.models import Status, Task
 
+
+@login_required
 def success_statistics(request):
     successful_status = Status.objects.get(name='Успешный')
+    refused_status = Status.objects.get(name='Отказ')
+
+    # Статистика по каждому пользователю
     stats = (
         Task.objects
-        .filter(status=successful_status)
-        .values('user__username')
-        .annotate(total_amount=Sum('amount'))
+        .values('user__first_name', 'user__last_name', 'user__username')
+        .annotate(
+            total=Count('id'),
+            success=Count('id', filter=Q(status=successful_status)),
+            refused=Count('id', filter=Q(status=refused_status)),
+            total_amount=Sum('amount', filter=Q(status=successful_status)),
+        )
         .order_by('-total_amount')
     )
-    total_sum = Task.objects.filter(status=successful_status).aggregate(Sum('amount'))['amount__sum']
+
+    totals = Task.objects.aggregate(
+        total=Count('id'),
+        success=Count('id', filter=Q(status=successful_status)),
+        refused=Count('id', filter=Q(status=refused_status)),
+        total_sum=Sum('amount', filter=Q(status=successful_status)),
+    )
+
     context = {
         'stats': stats,
-        'total_sum': total_sum,
+        'totals': totals,
     }
     return render(request, 'statistics.html', context)

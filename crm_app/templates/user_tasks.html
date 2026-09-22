@@ -15,6 +15,14 @@
                     <h3>{{ task.title }}</h3>
                     <span>{{ task.phone.as_international }}</span>
                     <div>Ответственный: {{ task.user }}</div>
+
+                    <div class="task-dates">
+                        <span>Создана: {{ task.created_at|date:"d.m.Y H:i" }}</span>
+                        {% if task.closed_at %}
+                            <span>Закрыта: {{ task.closed_at|date:"d.m.Y H:i" }}</span>
+                        {% endif %}
+                    </div>
+
                     {% if request.user.is_authenticated %}
                     <a href="{% url 'task_update' task.id %}" class="card-button">
                         Открыть карточку

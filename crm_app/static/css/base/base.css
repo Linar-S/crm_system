@@ -46,7 +46,7 @@
 }
 
 .v-delimiter {
-    border-right: 1px solid var(--header-text-color);    
+    border-right: 1px solid var(--header-text-color);
 }
 
 .simple-link{
@@ -87,7 +87,7 @@
 
 
 .content-block{
-    
+
     background-color: var(--block-color);
 }
 
@@ -168,4 +168,50 @@ nav {
     text-align: center;
     color: #7f8c8d;
     padding: 30px 0;
+}
+
+/* ===== Карточки статистики ===== */
+.stat-cards {
+    display: flex;
+    gap: 16px;
+    margin: 20px auto;
+    max-width: 800px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1 1 160px;
+    padding: 14px 22px;
+    border-radius: 8px;
+    background: #f4f4f4;
+    min-width: 150px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #bdc3c7;
+}
+
+.stat-card.success {
+    background: #e6f7e6;
+    border-left-color: #27ae60;
+}
+
+.stat-card.refused {
+    background: #fde8e8;
+    border-left-color: #e74c3c;
+}
+
+.stat-card.amount {
+    background: #e6f0ff;
+    border-left-color: #2980b9;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2c3e50;
 }

@@ -18,6 +18,31 @@
 
         <div class="left-column {% if not task_id %}full-width{% endif %}">
             <div class="content-block">
+
+                {# Блок с датами — только при редактировании #}
+                {% if task_id %}
+                    <div class="task-meta">
+                        <div class="task-meta-item">
+                            <span class="task-meta-label">Дата создания:</span>
+                            <span class="task-meta-value">
+                                {{ form.instance.created_at|date:"d.m.Y H:i" }}
+                            </span>
+                        </div>
+
+                        {% if form.instance.closed_at %}
+                            <div class="task-meta-item task-meta-item--closed
+                                {% if form.instance.status.name == 'Успешный' %}is-success{% endif %}
+                                {% if form.instance.status.name == 'Отказ' %}is-refused{% endif %}">
+                                <span class="task-meta-label">Дата закрытия:</span>
+                                <span class="task-meta-value">
+                                    {{ form.instance.closed_at|date:"d.m.Y H:i" }}
+                                </span>
+                                <span class="task-meta-status">{{ form.instance.status.name }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
                 <form method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
@@ -35,19 +60,16 @@
             </div>
         </div>
 
-
         {% if task_id %}
             <div class="right-column">
                 <div class="content-block comments-section">
                     <h3>Комментарии</h3>
-
 
                     <form method="POST" class="comment-form">
                         {% csrf_token %}
                         {{ comment_form.as_p }}
                         <button class="button-link" type="submit" name="comment_submit">Добавить комментарий</button>
                     </form>
-
 
                     <div class="comments-list">
                         {% if comments %}
