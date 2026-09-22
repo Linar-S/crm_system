@@ -1,16 +1,14 @@
-# This is a sample Python script.
-
-# Press Ctrl+F5 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
+import os
+import subprocess
+import sys
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def run(command):
+    subprocess.run(command, shell=True, check=True)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+if __name__ == "__main__":
+    port = os.getenv("PORT", "80")
+    run(f"{sys.executable} manage.py migrate --noinput")
+    run(f"{sys.executable} manage.py collectstatic --noinput")
+    os.execvp(sys.executable, [sys.executable, "-m", "gunicorn", "app_manager.wsgi:application", "--bind", f"0.0.0.0:{port}"])

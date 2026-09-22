@@ -28,9 +28,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!=#$pu%4^c(94tv#vu!(l$g52#hfk83tj0b(!tz*bh_p&9kj0*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #os.getenv('DEBUG', 'False').lower() in ('1', 'true', 'yes', 'on')
 
-ALLOWED_HOSTS = []
+_default_allowed_hosts = [
+    'localhost',
+    '127.0.0.1',
+    '0.0.0.0',
+    '.amvera.io',
+    '.amvera-users.svc.cluster.local',
+]
+_env_allowed_hosts = [h.strip() for h in os.getenv('ALLOWED_HOSTS', '').split(',') if h.strip()]
+ALLOWED_HOSTS = list(dict.fromkeys(_default_allowed_hosts + _env_allowed_hosts))
+
+_default_csrf_trusted_origins = [
+    'https://*.amvera.io',
+    'http://*.amvera.io',
+    'https://*.amvera-users.svc.cluster.local',
+    'http://*.amvera-users.svc.cluster.local',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+_env_csrf_trusted_origins = [origin.strip() for origin in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if origin.strip()]
+CSRF_TRUSTED_ORIGINS = list(dict.fromkeys(_default_csrf_trusted_origins + _env_csrf_trusted_origins))
+
+# Amvera terminates HTTPS before proxying the request to the Django container.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
@@ -49,6 +71,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -93,7 +116,7 @@ WSGI_APPLICATION = 'app_manager.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
+        "NAME": os.getenv("SQLITE_PATH", str(BASE_DIR / "mydatabase")),
     }
 }
 
@@ -132,3 +155,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
